@@ -15,12 +15,12 @@ window.kpBuild = async (files, { x = 0, y = 0, gap = 200, base = 'https://congpt
     return imgCache[url]
   }
   const solid = (c) => ({ type: 'SOLID', color: { r: c[0], g: c[1], b: c[2] }, opacity: c[3] })
-  const index = await fetch(base + 'index.json').then((r) => r.json())
+  const index = await fetch(base + 'index.json', { cache: 'no-store' }).then((r) => r.json())
   const made = []
   let cx = x
   for (const file of files) {
     const meta = index.find((e) => e.file === file)
-    const d = await fetch(base + file).then((r) => r.json())
+    const d = await fetch(base + file, { cache: 'no-store' }).then((r) => r.json())
     const W = meta.w
     const f = figma.createFrame()
     f.name = `${meta.name} / ${{ 1440: 'Desktop 1440', 768: 'Tablet 768', 390: 'Mobile 390' }[W]}`
